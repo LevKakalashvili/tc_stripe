@@ -1,4 +1,4 @@
-# django-comment-migrate
+django-comment-migrate
 
 mypy
 mypy-extensions
