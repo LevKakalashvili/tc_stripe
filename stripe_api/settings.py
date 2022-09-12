@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django_comment_migrate',
     'stripe_app',
+    'rest_framework',
 ]
 
 MIDDLEWARE = [
