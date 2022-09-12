@@ -8,8 +8,8 @@ class Item(models.Model):
         verbose_name_plural = "Товары"
 
     uuid = models.UUIDField(primary_key=True, default=uuid.uuid4, help_text="Идентификатор товара", verbose_name="Идентификатор", editable=False)
-    name = models.CharField(max_length=200, unique=True, help_text="Наименование товара", verbose_name="Наименование")
-    description = models.CharField(max_length=500, help_text="Описание товара", null=True, verbose_name="Описание")
+    name = models.CharField(max_length=200, unique=True, blank=False, default='', help_text="Наименование товара", verbose_name="Наименование")
+    description = models.CharField(max_length=500, blank=True, help_text="Описание товара", verbose_name="Описание")
     price = models.DecimalField(max_digits=5, decimal_places=2, help_text="Цена товара", verbose_name="Цена")
 
     def __str__(self):
