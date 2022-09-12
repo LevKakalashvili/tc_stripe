@@ -7,4 +7,4 @@ from stripe_app.models import Item
 class ItemSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Item
-        fields = ("name", "description", "price")
+        fields = ("uuid", "name", "description", "price")
