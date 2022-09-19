@@ -3,4 +3,4 @@ djangorestframework
 python-dotenv
 # markdown       # Markdown support for the browsable API.
 # django-filter  # Filtering support
-# stripe
+stripe

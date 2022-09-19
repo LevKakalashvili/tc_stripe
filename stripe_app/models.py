@@ -14,6 +14,7 @@ class Item(models.Model):
                             verbose_name="Наименование")
     description = models.CharField(max_length=500, blank=True, help_text="Описание товара", verbose_name="Описание")
     price = models.DecimalField(max_digits=5, decimal_places=2, help_text="Цена товара", verbose_name="Цена")
+    # price = models.IntegerField(help_text="Цена товара", verbose_name="Цена")
 
     def __str__(self):
         return self.name
