@@ -36,5 +36,9 @@ class StripeManager:
     def get_payment_url(self) -> str:
         session: Session = self._create_checkout_session()
 
-        return session.url
+        return session.url # type: ignore
 
+    def get_payment_session_id(self) -> str:
+        session: Session = self._create_checkout_session()
+
+        return session.id  # type: ignore
