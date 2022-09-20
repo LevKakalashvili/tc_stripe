@@ -10,14 +10,16 @@ from rest_framework.response import Response
 
 
 class ProductBuyView(APIView):
-    def get(self, request, item_uuid: str, format=None):
-        product = Item(uuid=uuid.uuid4(), name="Товар 1", description="Описание", price=99.00)
+    def get(self, request, item_uuid: str):
+        # product = Item(uuid=uuid.uuid4(), name="Товар 1", description="Описание", price=99.00)
         # product.save()
-        # product = Item.objects.all().filter(uuid__exact=uuid.UUID(item_uuid))[0]
+        product = Item.objects.get(uuid__exact=uuid.UUID(item_uuid))
         redirect_url = stripe_manager.get_payment_url()
+        session_id = stripe_manager.get_payment_session_id()
         # serializer = ItemSerializer(product, many=True)
-        # return Response(serializer.data)
-        return redirect(redirect_url)
+        data = {"status": "Ok", "stripe_session_id": session_id}
+        return Response(data=data)
+        # return redirect(redirect_url)
 
 
 class ProductListView(APIView):
