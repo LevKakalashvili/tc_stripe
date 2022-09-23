@@ -4,12 +4,7 @@ from typing import NamedTuple
 
 from django.db import models
 
-class ItemNamedTuple(NamedTuple):
-    uuid: uuid.UUID
-    name: str
-    name: str
-    description: str
-    price: decimal.Decimal
+from stripe_app.classes import ItemNamedTuple
 
 
 # Create your models here.
