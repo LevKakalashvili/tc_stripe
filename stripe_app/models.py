@@ -1,5 +1,15 @@
+import decimal
 import uuid
+from typing import NamedTuple
+
 from django.db import models
+
+class ItemNamedTuple(NamedTuple):
+    uuid: uuid.UUID
+    name: str
+    name: str
+    description: str
+    price: decimal.Decimal
 
 
 # Create your models here.
@@ -18,3 +28,12 @@ class Item(models.Model):
 
     def __str__(self):
         return self.name
+
+    def get_tuple(self) -> ItemNamedTuple:
+        return ItemNamedTuple(
+            uuid=self.uuid,
+            name=self.name,
+            price=self.price,
+            description=self.description,
+        )
+
