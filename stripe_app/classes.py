@@ -1,4 +1,3 @@
-
 import decimal
 from typing import NamedTuple
 
@@ -25,7 +24,7 @@ class StripeManager:
     def _create_checkout_session(
         self, product: ItemNamedTuple, currency: str, quantity: int
     ) -> Session:
-        session: Session = self._stripe.checkout.Session.create(
+        session = self._stripe.checkout.Session.create(
             line_items=[
                 {
                     "price_data": {
