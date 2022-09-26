@@ -1,43 +1,46 @@
-import uuid
+from django.conf import settings
 
-from django.http import Http404
-from django.shortcuts import redirect
-from rest_framework.generics import RetrieveAPIView
-
-from stripe_app.serializers import ItemSerializer
+from django.shortcuts import get_object_or_404
+from django.views.generic.detail import DetailView
 from stripe_app.models import Item
 from stripe_app import stripe_manager
 from rest_framework.views import APIView
 from rest_framework.response import Response
 
 
-class ProductBuyView(APIView):
+class ProductApiBuyView(APIView):
 
-    def get_object(self, pk) -> Item:
-        try:
-            return Item.objects.get(pk)
-        except Item.DoesNotExist:
-            raise Http404
+    def get_object(self, item_uuid) -> Item:
+        return get_object_or_404(Item, pk=item_uuid)
 
-    def get(self, request, pk, format=None) -> Response:
+    def get(self, request, item_uuid, format=None) -> Response:
 
-        try:
-            uuid.UUID(pk)
-        except ValueError:
-            raise Http404
-
-        item = self.get_object(pk)
+        item = self.get_object(item_uuid)
         item = item.get_tuple()
         session_id = stripe_manager.get_payment_session_id(
-            name=item.name,
-            price=item.price,
-            description=item.description,
+            product=item,
             currency="rub",
             quantity="1",
             )
 
-        data = {"success": True, "stripe_session_id": session_id}
+        # data = {"success": True, "stripe_session_id": session_id}
+        data = {session_id}
         return Response(data=data)
+
+
+class ProductDetailView(DetailView):
+    model = Item
+    # template_name = "item_detail.html"
+
+    def get_object(self):
+        return get_object_or_404(Item, pk=self.kwargs["item_uuid"])
+
+    def get_context_data(self, **kwargs):
+        context = super(ProductDetailView, self).get_context_data(**kwargs)
+        context["STRIPE_PUBLISHABLE_API_KEY"] = settings.STRIPE_PUBLISHABLE_API_KEY
+        context["item_uuid"] = self.kwargs["item_uuid"]
+        return context
+
 
     # def get():
     # def get(self, request, format=None):

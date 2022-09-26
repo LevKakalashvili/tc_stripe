@@ -1,0 +1,37 @@
+<html>
+  <head>
+    <title>Купить {{ item.name }}</title>
+  </head>
+  <body>
+    <h1>{{ item.name }}</h1>
+    <p>{{ item.description }}</p>
+    <button id="buy-button">Купить</button>
+    <script type="text/javascript">
+        {#var stripe = Stripe({{ STRIPE_PUBLISHABLE_API_KEY }});#}
+        var buyButton = document.getElementById("buy-button");
+        let uuid = {{ item_uuid }};
+        console.log(`api/v1/buy/${uuid}`);
+        buyButton.addEventListener("click", function() {
+            alert("aaaa")
+            }
+
+                {#fetch(#}
+                {#    `api/v1/buy/${uuid}`,#}
+                {#    {#}
+                {#        method: 'GET',#}
+                {#        headers:#}
+                {#            {#}
+                {#                'Content-Type': 'application/json',#}
+                {#                'Accept': 'application/json',#}
+                {#                'url': '/payment',#}
+                {#                "X-CSRF-Token": document.querySelector('input[name=_token]').value,#}
+                {#            },#}
+                {#    },#}
+                )
+        {#    }#}
+        {#);#}
+
+    </script>
+
+  </body>
+</html>
