@@ -1,5 +1,4 @@
-import stripe
-import os
+
 import decimal
 from typing import NamedTuple
 
@@ -8,7 +7,6 @@ import uuid as uuid
 
 from django.conf import settings
 from requests import Session
-from stripe_app.models import ItemNamedTuple
 
 
 class ItemNamedTuple(NamedTuple):
@@ -52,3 +50,5 @@ class StripeManager:
         self, product: ItemNamedTuple, currency: str, quantity: int
     ) -> str:
         session = self._create_checkout_session(product, currency, quantity)
+
+        return session.id
