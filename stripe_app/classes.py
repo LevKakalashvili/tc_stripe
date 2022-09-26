@@ -52,8 +52,3 @@ class StripeManager:
         self, product: ItemNamedTuple, currency: str, quantity: int
     ) -> str:
         session = self._create_checkout_session(product, currency, quantity)
-
-    def get_payment_session_id(self, product: ItemNamedTuple, currency: str, quantity: decimal.Decimal) -> str:
-        session: Session = self._create_checkout_session(product, currency, quantity)
-
-        return session.id  # type: ignore
