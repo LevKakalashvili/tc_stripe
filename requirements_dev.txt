@@ -1,4 +1,5 @@
-django-comment-migrate
+django-comment-migrate==0.1.5
+
 
 mypy
 mypy-extensions

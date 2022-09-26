@@ -16,11 +16,11 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
-admin.site.site_header = 'Тестирование Stripe (тестовое задание)'
+admin.site.site_header = "Тестирование Stripe (тестовое задание)"
 admin.site.index_title = f"{admin.site.site_header}. Администрирование"
 admin.site.site_title = admin.site.site_header
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('', include('stripe_app.urls')),
+    path("admin/", admin.site.urls),
+    path("", include("stripe_app.urls")),
 ]

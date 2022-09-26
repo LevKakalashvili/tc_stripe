@@ -1,7 +1,5 @@
-django
-mysqlclient
-djangorestframework
-python-dotenv
-# markdown       # Markdown support for the browsable API.
-# django-filter  # Filtering support
-stripe
+django==4.1.1
+djangorestframework==3.13.1
+python-dotenv==0.21.0
+stripe==4.1.0
+types-stripe==3.5.2
