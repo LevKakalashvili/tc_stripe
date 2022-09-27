@@ -6,31 +6,38 @@
     <h1>{{ item.name }}</h1>
     <p>{{ item.description }}</p>
     <button id="buy-button">Купить</button>
+    <script src="https://js.stripe.com/v3/"></script>
     <script type="text/javascript">
-        {#var stripe = Stripe({{ STRIPE_PUBLISHABLE_API_KEY }});#}
+        var stripe = Stripe("{{ STRIPE_PUBLISHABLE_API_KEY }}");
         var buyButton = document.getElementById("buy-button");
-        let uuid = {{ item_uuid }};
-        console.log(`api/v1/buy/${uuid}`);
+        {#buyButton.addEventListener("click", function() {#}
+        {#    fetch("http://127.0.0.1:8000/api/v1/buy/d1475e78a4f64ea2aefe1974fe709148", {#}
+        {#      method: 'GET'})#}
+        {#        .then(response => response.json())#}
+        {#        .then(session => stripe.redirectToCheckout({sessionId: session.id}))#}
+        {# });#}
+
         buyButton.addEventListener("click", function() {
-            alert("aaaa")
-            }
-
-                {#fetch(#}
-                {#    `api/v1/buy/${uuid}`,#}
-                {#    {#}
-                {#        method: 'GET',#}
-                {#        headers:#}
-                {#            {#}
-                {#                'Content-Type': 'application/json',#}
-                {#                'Accept': 'application/json',#}
-                {#                'url': '/payment',#}
-                {#                "X-CSRF-Token": document.querySelector('input[name=_token]').value,#}
-                {#            },#}
-                {#    },#}
+            fetch("http://127.0.0.1:8000/api/v1/buy/d1475e78a4f64ea2aefe1974fe709148", {
+              method: 'GET'})
+                .then(function(response) {
+                    console.log(`response`)
+                    console.log(`response ${response.json()}`)
+                    return response.json();
+                })
+                .then(function(session) {
+                    console.log(`session.id`);
+                    console.log(`session.id ${session.id}`);
+                    return stripe.redirectToCheckout({ sessionId: session.id });
+                    }
                 )
-        {#    }#}
-        {#);#}
-
+                .then(function(result) {
+                    if (result.error) {
+                        console.log(result.error.message);
+                    }
+                }
+                )
+        });
     </script>
 
   </body>
