@@ -1,3 +1,5 @@
+from urllib.parse import urljoin
+
 from django.conf import settings
 
 from django.shortcuts import get_object_or_404
@@ -30,7 +32,6 @@ class ProductApiBuyView(APIView):
 
 class ProductDetailView(DetailView):
     model = Item
-    # template_name = "item_detail.html"
 
     def get_object(self):
         return get_object_or_404(Item, pk=self.kwargs["item_uuid"])
@@ -38,7 +39,7 @@ class ProductDetailView(DetailView):
     def get_context_data(self, **kwargs):
         context = super(ProductDetailView, self).get_context_data(**kwargs)
         context["STRIPE_PUBLISHABLE_API_KEY"] = settings.STRIPE_PUBLISHABLE_API_KEY
-        context["item_uuid"] = self.kwargs["item_uuid"]
+        context["api_request_url"] = "".join(["http://", self.request.headers.get("Host"), self.request.path.replace("item", "buy")])
         return context
 
 
