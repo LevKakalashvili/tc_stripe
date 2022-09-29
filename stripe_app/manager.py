@@ -1,4 +1,5 @@
 import decimal
+from dataclasses import dataclass
 from typing import NamedTuple
 
 import stripe
@@ -16,6 +17,7 @@ class ItemNamedTuple(NamedTuple):
     price: decimal.Decimal
 
 
+@dataclass
 class StripeManager:
     def __init__(self):
         self._stripe = stripe
@@ -51,3 +53,6 @@ class StripeManager:
         session = self._create_checkout_session(product, currency, quantity)
 
         return session.id
+
+
+stripe_manager = StripeManager()

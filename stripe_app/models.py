@@ -3,7 +3,7 @@ import uuid
 from typing import NamedTuple
 
 from django.db import models
-from stripe_app.classes import ItemNamedTuple
+from stripe_app.manager import ItemNamedTuple
 
 
 class Item(models.Model):
