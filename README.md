@@ -5,6 +5,7 @@
 - Django Rest Frame Work (3.13.1)
 - Python Dotenv (0.21.0)
 - Stripe (4.1.0)
+- MySql (8.0.3)
 
 ## Описание:
 - Создал модель Item с полями (name, description, price)
