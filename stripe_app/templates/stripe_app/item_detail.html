@@ -10,25 +10,16 @@
     <script type="text/javascript">
         var stripe = Stripe("{{ STRIPE_PUBLISHABLE_API_KEY }}");
         var buyButton = document.getElementById("buy-button");
-        {#buyButton.addEventListener("click", function() {#}
-        {#    fetch("http://127.0.0.1:8000/api/v1/buy/d1475e78a4f64ea2aefe1974fe709148", {#}
-        {#      method: 'GET'})#}
-        {#        .then(response => response.json())#}
-        {#        .then(session => stripe.redirectToCheckout({sessionId: session.id}))#}
-        {# });#}
-
         buyButton.addEventListener("click", function() {
-            fetch("http://127.0.0.1:8000/api/v1/buy/d1475e78a4f64ea2aefe1974fe709148", {
+            fetch("{{ api_request_url }}", {
               method: 'GET'})
                 .then(function(response) {
-                    console.log(`response`)
-                    console.log(`response ${response.json()}`)
                     return response.json();
-                })
-                .then(function(session) {
-                    console.log(`session.id`);
-                    console.log(`session.id ${session.id}`);
-                    return stripe.redirectToCheckout({ sessionId: session.id });
+                }).then(function (data) {
+                    return(data[0]);
+            })
+                .then(function(session_id) {
+                    return stripe.redirectToCheckout({ sessionId: session_id });
                     }
                 )
                 .then(function(result) {
