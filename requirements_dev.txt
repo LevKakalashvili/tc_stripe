@@ -1,6 +1,3 @@
-django-comment-migrate==0.1.5
-
-
 mypy
 mypy-extensions
 isort
@@ -29,7 +26,5 @@ flake8-docstrings
 
 autopep8
 
-# https://black.readthedocs.io/en/stable/integrations/editors.html
 black
 types-requests
-# django-debug-toolbar

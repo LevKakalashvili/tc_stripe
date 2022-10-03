@@ -29,8 +29,7 @@ class Item(models.Model):
     description = models.CharField(
         max_length=500, blank=True, help_text="Описание товара", verbose_name="Описание"
     )
-    price = models.DecimalField(
-        max_digits=5, decimal_places=2, help_text="Цена товара", verbose_name="Цена"
+    price = models.IntegerField(help_text="Цена товара", verbose_name="Цена"
     )
 
     def __str__(self):
@@ -40,7 +39,7 @@ class Item(models.Model):
         return ItemNamedTuple(
             uuid=self.uuid,
             name=self.name,
-            price=self.price,
+            price=decimal.Decimal(self.price/100).quantize(decimal.Decimal("1.00")),
             description=self.description,
         )
 
