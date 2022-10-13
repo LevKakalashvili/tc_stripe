@@ -1,14 +1,21 @@
 {% load mathfilters %}
+{% load static %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'stripe_app/css/bootstrap.css' %}" >
 
 <html>
   <head>
     <title>Купить {{ item.name }}</title>
   </head>
   <body>
-    <h1>{{ item.name }}</h1>
-    <p>{{ item.description }}</p>
-    <p>{{ item.price|div:100 }}</p>
-    <button id="buy-button">Купить</button>
+    <div class="card" style="width: 18rem;">
+      <div class="card-body">
+        <h5 class="card-title">{{ item.name }}</h5>
+        <p class="card-text">{{ item.description }}</p>
+        <h5 class="card-price">Цена: {{ item.price|div:100 }}</h5>
+        <a href="#" class="btn btn-primary" id="buy-button">Купить</a>
+      </div>
+    </div>
     <script src="https://js.stripe.com/v3/"></script>
     <script type="text/javascript">
         var stripe = Stripe("{{ STRIPE_PUBLISHABLE_API_KEY }}");
